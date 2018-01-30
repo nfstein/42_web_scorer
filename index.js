@@ -16,6 +16,8 @@ var $weCounter = document.querySelector("#weCounter");
 var $theyCounter = document.querySelector("#theyCounter");
 var $countSum = document.querySelector("#countSum");
 
+var $table = document.querySelector('table')
+
 var weCount = 0;
 var theyCount = 0;
 
@@ -139,9 +141,9 @@ function renderTotal () {
 };
 
 function populateTable (scoreDict) {
-    $baseTable = document.querySelector('table');
+    $baseTable = document.querySelector('tbody');
     $tr = document.createElement('tr');
-    $tr.innerHTML = `<th style="width:100%">${scoreDict.we}</th><th style="width:100%">${scoreDict.they}</th>`
+    $tr.innerHTML = `<th style="width:100%;"> ${scoreDict.we}</th><th style="width:100%;">${scoreDict.they}</th>`
     $baseTable.appendChild($tr);
     weTotal += scoreDict.we
     theyTotal += scoreDict.they
@@ -188,3 +190,8 @@ function scoreTest(high, low){
     return false;
 
 }
+
+$table.addEventListener('click', function removeLast(){
+    scores.splice(-1,1)
+    renderTotal()
+});

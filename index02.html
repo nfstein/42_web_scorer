@@ -15,21 +15,26 @@
         <div class="panel m-top-75">
           <div class="panel-body">
             <div class = 'row'>
-              <div class = 'col-xs-4 '>
-                <section style = 'vertical-align:center'>
-                  <button id="we10" class="btn btn-primary" style="width:100%">10</button>
-                  <button id="we5" class="btn btn-primary"style="width:100%">5</button>
-                  <button id="we1" class="btn btn-primary"style="width:100%">1</button>
-                </section>
+              <div class = 'col-xs-4' style='height:200px;'>
+                  <button id="we10" class="btn btn-primary" style="width:100%; height:50%;">10</button>
+                  <button id="we5" class="btn btn-primary"style="width:100%; height:50%;">5</button>
+                  <button id="we1" class="btn btn-primary"style="width:100%; height:50%;">1</button>
               </div>
 
-              <div class = 'col-xs-4 text-center'>
-                <div class="panel xs-top-90">
-                  <div class="panel-body">
-                    <div class = 'row'>
-                      <table style="height:200px; width:100%; overflow:scroll">
+              <div class = 'col-xs-4'>
+                <div class="panel xs-top-90" style = 'overflow:auto;'>
+                  <div class="panel-body" style = 'overflow:auto;'>
+                    <div class = 'row' style='height:200px; overflow:auto;'>
+                      <table class='table table-hover' style="height:200px; width: 100%">
+                        <tbody>
+                          <tr>
+                            <th>We</th>
+                            <th>They</th>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
+                    
                     <div class = 'row'>
                       <div id='weTotal' class = 'col-xs-5 col-sm-offset-1 text-center'>
                         <h3>0</h3>
@@ -41,27 +46,24 @@
                   </div>
                 </div>
 
-                <!--<div class="panel m-top-75">
-                    <div class="panel-body">-->
-                      <div class = "row">
-                        <div class = 'col-xs-4 text-center'>
-                          <h2 id='weCounter'> 0 </h2>
-                        </div>
-                        <div class = 'col-xs-4 text-center'>
-                          <h4 id='countSum' class='text-muted'>0</h4>
-                        </div>
-                        <div class = 'col-xs-4 text-center'>
-                          <h2 id='theyCounter'>0</h2>
-                        </div>                      
-                      </div>
-                    </div>
-                  <!--</div>
-                </div>-->
+                <div class = "row">
+                  <div class = 'col-xs-4 text-center'>
+                    <h2 id='weCounter'> 0 </h2>
+                  </div>
+                  <div class = 'col-xs-4 text-center'>
+                    <h4 id='countSum' class='text-muted'>0</h4>
+                  </div>
+                  <div class = 'col-xs-4 text-center'>
+                    <h2 id='theyCounter'>0</h2>
+                  </div>                      
+                </div>
+              </div>
 
-              <div class = 'col-xs-4'>
-                  <button id="they10" class="btn btn-danger" style="width:100%">10</button>
-                  <button id="they5" class="btn btn-danger"style="width:100%">5</button>
-                  <button id="they1" class="btn btn-danger"style="width:100%">1</button>
+
+              <div class = 'col-xs-4' style='height:200px;'>
+                  <button id="they10" class="btn btn-danger" style="width:100%; height:50%;">10</button>
+                  <button id="they5" class="btn btn-danger"style="width:100%; height:50%;">5</button>
+                  <button id="they1" class="btn btn-danger"style="width:100%; height:50%;">1</button>
                 </div>
             </div>
 
