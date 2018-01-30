@@ -11,68 +11,55 @@
 <body>
   <div class="container">
     <div class = 'row'>
-      <div class = 'col-sm-8 col-sm-offset-2'>
-        <div class="panel m-top-75">
-          <div class="panel-body">
-            <div class = 'row'>
-              <div class = 'col-xs-4 '>
-                <section style = 'vertical-align:center'>
-                  <button id="we10" class="btn btn-primary" style="width:100%">10</button>
-                  <button id="we5" class="btn btn-primary"style="width:100%">5</button>
-                  <button id="we1" class="btn btn-primary"style="width:100%">1</button>
-                </section>
-              </div>
+      <div class = 'col-sm-4 col-sm-offset-4 text-center'>
+          <table style="width:100%">
+          </table>
+      </div>
+    </div>
 
-              <div class = 'col-xs-4 text-center'>
-                <div class="panel xs-top-90">
-                  <div class="panel-body">
-                    <div class = 'row'>
-                      <table style="height:200px; width:100%; overflow:scroll">
-                      </table>
-                    </div>
-                    <div class = 'row'>
-                      <div id='weTotal' class = 'col-xs-5 col-sm-offset-1 text-center'>
-                        <h3>0</h3>
+      <div class="row ">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+          <div class="panel m-top-75">
+            <div class="panel-body">
+              <div class = "row">
+                <div id='weTotal' class = 'col-sm-3 text-center'>
+                  <h2>0</h2>
+                </div>
+                <div class = 'col-sm-6 text-center'>
+                  <div class="panel m-top-75">
+                    <div class="panel-body">
+                      <div class = 'col-sm-5 text-center'>
+                        <h2 id='weCounter'> 0 </h2>
                       </div>
-                      <div id='theyTotal' class = 'col-xs-5 text-center'>
-                        <h3>0</h3>
+                      <div class = 'col-sm-2 text-center'>
+                        <h3 id='countSum' ><small> 0 </small></h3>
+                      </div>
+                      <div class = 'col-sm-5 text-center'>
+                        <h2 id='theyCounter'>0</h2>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <!--<div class="panel m-top-75">
-                    <div class="panel-body">-->
-                      <div class = "row">
-                        <div class = 'col-xs-4 text-center'>
-                          <h2 id='weCounter'> 0 </h2>
-                        </div>
-                        <div class = 'col-xs-4 text-center'>
-                          <h4 id='countSum' class='text-muted'>0</h4>
-                        </div>
-                        <div class = 'col-xs-4 text-center'>
-                          <h2 id='theyCounter'>0</h2>
-                        </div>                      
-                      </div>
-                    </div>
-                  <!--</div>
-                </div>-->
-
-              <div class = 'col-xs-4'>
-                  <button id="they10" class="btn btn-danger" style="width:100%">10</button>
-                  <button id="they5" class="btn btn-danger"style="width:100%">5</button>
-                  <button id="they1" class="btn btn-danger"style="width:100%">1</button>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class='col-xs-4 col-xs-offset-2'>
-                  <button id="total" class="btn btn-primary" style='width:100%'>Total</button>
-                </div>
-                <div class='col-xs-4'>
-                  <button id='clear' class="btn btn-danger" style='width:100%'>Clear</button>             
-                </div>
+              
+                <div id='theyTotal' class = 'col-sm-3 text-center'>
+                  <h2>0</h2>
+                </div>  
+              
+              
               </div>
+            </div>
+            <!--<h1 class="text-center" id="counter"></h1>-->
+              <section>
+                <button id="we10" class="btn btn-primary ">10</button>
+                <button id="we5" class="btn btn-primary">5</button>
+                <button id="we1" class="btn btn-primary">1</button>
+                <button id="total" class="btn btn-primary">Total</button>
+                <button id='clear' class="btn btn-danger">Clear</button>             
+                <button id='they1' class="btn btn-danger">1</button>
+                <button id='they5' class="btn btn-danger">5</button>
+                <button id='they10' class="btn btn-danger">10</button>
+              </section>
+            </div>
           </div>
         </div>
       </div>
