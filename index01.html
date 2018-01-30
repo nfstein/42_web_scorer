@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Texas 42</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <!--<link rel="stylesheet" href="styles.css">-->
+</head>
+<body>
+  <div class="container">
+    <div class = 'row'>
+      <div class = 'col-sm-8 col-sm-offset-2'>
+        <div class="panel m-top-75">
+          <div class="panel-body">
+            <div class = 'row'>
+              <div class = 'col-xs-4 '>
+                <section style = 'vertical-align:center'>
+                  <button id="we10" class="btn btn-primary" style="width:100%">10</button>
+                  <button id="we5" class="btn btn-primary"style="width:100%">5</button>
+                  <button id="we1" class="btn btn-primary"style="width:100%">1</button>
+                </section>
+              </div>
+
+              <div class = 'col-xs-4 text-center'>
+                <div class="panel xs-top-90">
+                  <div class="panel-body">
+                    <div class = 'row'>
+                      <table style="height:200px; width:100%; overflow:scroll">
+                      </table>
+                    </div>
+                    <div class = 'row'>
+                      <div id='weTotal' class = 'col-xs-5 col-sm-offset-1 text-center'>
+                        <h3>0</h3>
+                      </div>
+                      <div id='theyTotal' class = 'col-xs-5 text-center'>
+                        <h3>0</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--<div class="panel m-top-75">
+                    <div class="panel-body">-->
+                      <div class = "row">
+                        <div class = 'col-xs-4 text-center'>
+                          <h2 id='weCounter'> 0 </h2>
+                        </div>
+                        <div class = 'col-xs-4 text-center'>
+                          <h4 id='countSum' class='text-muted'>0</h4>
+                        </div>
+                        <div class = 'col-xs-4 text-center'>
+                          <h2 id='theyCounter'>0</h2>
+                        </div>                      
+                      </div>
+                    </div>
+                  <!--</div>
+                </div>-->
+
+              <div class = 'col-xs-4'>
+                  <button id="they10" class="btn btn-danger" style="width:100%">10</button>
+                  <button id="they5" class="btn btn-danger"style="width:100%">5</button>
+                  <button id="they1" class="btn btn-danger"style="width:100%">1</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class='col-xs-4 col-xs-offset-2'>
+                  <button id="total" class="btn btn-primary" style='width:100%'>Total</button>
+                </div>
+                <div class='col-xs-4'>
+                  <button id='clear' class="btn btn-danger" style='width:100%'>Clear</button>             
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
+  <script src="index.js" type="text/javascript"></script>
+  
+</body>
+</html>

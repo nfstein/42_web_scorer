@@ -90,6 +90,18 @@ $countSum.addEventListener("click", function () {
     }
 });
 
+$weCounter.addEventListener("click", function() {
+    if ((weCount == 0) && (theyCount == 0)) {
+        renderCount(maxBid, 0)
+    }
+});
+
+$theyCounter.addEventListener("click", function() {
+    if ((weCount == 0) && (theyCount == 0)) {
+        renderCount(0, maxBid)
+    }
+});
+
 $clear.addEventListener("click", function() {
     console.log('clear')
     renderCount(0, 0)}
@@ -113,23 +125,23 @@ function renderCount (weVal, theyVal) {
     theyCount = theyVal;
     $weCounter.innerHTML = "<h2>" + weCount + "</h2>";
     $theyCounter.innerHTML = "<h2>" + theyCount + "</h2>";
-    $countSum.innerHTML = "<h3><small>"+ (weCount + theyCount) +"</small></h3>";
+    $countSum.innerHTML = (weCount + theyCount);
 };
 
 function renderTotal () {
     d3.selectAll('tr').remove();
-    weTotal = 0
-    theyTotal = 0
+    weTotal = 0;
+    theyTotal = 0;
     // recount totals in populateTable
     scores.forEach(populateTable);
-    $weTotal.innerHTML = "<h2>" + weTotal + "</h2>";
-    $theyTotal.innerHTML = "<h2>" + theyTotal + "</h2>";
+    $weTotal.innerHTML = "<h3>" + weTotal + "</h3>";
+    $theyTotal.innerHTML = "<h3>" + theyTotal + "</h3>";
 };
 
 function populateTable (scoreDict) {
     $baseTable = document.querySelector('table');
     $tr = document.createElement('tr');
-    $tr.innerHTML = `<th>${scoreDict.we}</th><th>${scoreDict.they}</th>`
+    $tr.innerHTML = `<th style="width:100%">${scoreDict.we}</th><th style="width:100%">${scoreDict.they}</th>`
     $baseTable.appendChild($tr);
     weTotal += scoreDict.we
     theyTotal += scoreDict.they
