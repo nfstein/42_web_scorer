@@ -1,11 +1,11 @@
 var $we10 = document.querySelector("#we10");
 var $we5 = document.querySelector("#we5");
-var $we1 = document.querySelector("#we1");
+var $weTrick = document.querySelector("#weTrick");
 
 var $total = document.querySelector("#total");
 var $clear = document.querySelector("#clear");
 
-var $they1 = document.querySelector("#they1");
+var $theyTrick = document.querySelector("#theyTrick");
 var $they5 = document.querySelector("#they5");
 var $they10 = document.querySelector("#they10");
 
@@ -23,13 +23,39 @@ var theyCount = 0;
 
 var weTotal = 0;
 var theyTotal = 0;
-scores = []
 
-maxBid = 42
-minBid = 30
+var scores = [];
+var roundCounter = 0;
 
-$we1.addEventListener("click", function(){
-    weCount ++;
+var tableBottom = 0;
+
+var debugMessages = true;
+var gameLogic = true;
+
+var rules42 = {
+    maxBid: 42,
+    minBid:  30,
+    trickValue: 1,
+    numPlayers: 4
+}
+
+var rules88 = {
+    maxBid: 88,
+    minBid:  60,
+    trickValue: 2,
+    numPlayers: 6
+}
+
+var gameStats = rules42
+
+initialSetup(rules42)
+
+$weTrick.innerHTML = gameStats.trickValue
+$theyTrick.innerHTML = gameStats.trickValue
+
+
+$weTrick.addEventListener("click", function(){
+    weCount += gameStats.trickValue;
     renderCount(weCount, theyCount);
 });
 
@@ -43,8 +69,8 @@ $we10.addEventListener("click", function(){
     renderCount(weCount, theyCount);
 });
 
-$they1.addEventListener("click", function(){
-    theyCount ++;
+$theyTrick.addEventListener("click", function(){
+    theyCount += gameStats.trickValue;
     renderCount(weCount, theyCount);
 });
 
@@ -70,7 +96,7 @@ $total.addEventListener("click", function(){
     } else {testPassed = scoreTest(theyCount, weCount)};
 
     //if the score is potentially invalid raise alert to proceed or reset
-    if (!testPassed) {
+    if (!testPassed && gameLogic) {
         if (confirm("invalid score; add anyway?")) {
             rackScores(weCount, theyCount)
         } else {
@@ -84,36 +110,88 @@ $total.addEventListener("click", function(){
 });
 
 $countSum.addEventListener("click", function () {
+    //complete scores so they add up to gameStats.maxBid
     if ((weCount == 0) && (theyCount > 0)) {
-        renderCount(maxBid - theyCount, theyCount)
+        renderCount(gameStats.maxBid - theyCount, theyCount)
     }
     else if ((theyCount == 0) && (weCount > 0)) {
-        renderCount(weCount, maxBid - weCount)
+        renderCount(weCount, gameStats.maxBid - weCount)
     }
 });
 
 $weCounter.addEventListener("click", function() {
-    if ((weCount == 0) && (theyCount == 0)) {
-        renderCount(maxBid, 0)
-    }
+    //autofill 42 on click when scores are empty
+    if ((weCount % gameStats.maxBid == 0) && (theyCount == 0)) {
+        weCount += gameStats.maxBid;
+        renderCount(weCount, 0);
+    };
 });
 
 $theyCounter.addEventListener("click", function() {
-    if ((weCount == 0) && (theyCount == 0)) {
-        renderCount(0, maxBid)
-    }
+    //autofill 42 on click when scores are empty
+    if ((weCount == 0) && (theyCount % gameStats.maxBid == 0)) {
+        theyCount += gameStats.maxBid;
+        renderCount(0, theyCount);
+    };
 });
 
 $clear.addEventListener("click", function() {
-    console.log('clear')
-    renderCount(0, 0)}
-);
+
+    console.log('clear counts')
+    renderCount(0, 0)
+});
+
+$clear.addEventListener("dblclick", clearTable);
+
+$table.addEventListener("dblclick", clearTable);
+
+$table.addEventListener('click', function removeLast(){
+    
+    if (confirm("Delete last row?")) {
+        scores.splice(-1,1)
+        renderTotal()
+        roundCounter = parseInt(roundCounter) - 1
+        if (debugMessages) { console.log('deleted last row',scores,roundCounter)};
+    }
+
+});
+
+function initialSetup(rules) {
+    try {
+        scores = JSON.parse(localStorage.scores);
+        roundCounter = localStorage.counter;
+        console.log(scores, roundCounter)
+        if (scores == null) {
+            scores = []
+            roundCounter = 0
+            if (debugMessages) {
+                console.log("initializing empty variables", roundCounter, scores)
+            }
+        } else {renderTotal()}
+    }
+    catch (error) {
+        scores = []
+        roundCounter = 0
+        if (debugMessages) {
+            console.log("initializing empty variables", roundCounter, scores)
+            console.log(error)
+        }
+    };
+
+    gameStats = rules
+}
 
 function rackScores(weVal, theyVal) {
+    if (debugMessages) {`rackScores(${weVal},${theyVal})`}
     weTotal += weVal;
-    theyTotal += theyVal
+    theyTotal += theyVal;
 
-    scores.push({'we': weVal, 'they': theyVal})
+    scores[roundCounter] = {'we': weVal, 'they': theyVal};
+    if (debugMessages) {console.log('roundCounter before', roundCounter)};
+    // roundCounter was periodically being converted to a string somewhere
+    roundCounter = parseInt(roundCounter) + 1;
+    if (debugMessages) {console.log('roundCounter after', roundCounter)};
+
 
     weCount = 0
     theyCount = 0
@@ -123,6 +201,7 @@ function rackScores(weVal, theyVal) {
 }
 
 function renderCount (weVal, theyVal) {
+    //if (debugMessages) {`renderCount(${weVal},${theyVal})`}
     weCount = weVal;
     theyCount = theyVal;
     $weCounter.innerHTML = "<h2>" + weCount + "</h2>";
@@ -136,28 +215,63 @@ function renderTotal () {
     theyTotal = 0;
     // recount totals in populateTable
     scores.forEach(populateTable);
+
     $weTotal.innerHTML = "<h3>" + weTotal + "</h3>";
     $theyTotal.innerHTML = "<h3>" + theyTotal + "</h3>";
+
+    //$table.scrollTo(0,$table.scrollHeight);
+    var $tableRow = document.querySelector('#tableRow')
+    $tableRow.scrollTop = tableBottom;
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+    localStorage.setItem("counter", roundCounter);
+
+    console.log(scores)
 };
 
 function populateTable (scoreDict) {
+    //if (debugMessages) { console.log(scoreDict)}
     $baseTable = document.querySelector('tbody');
     $tr = document.createElement('tr');
-    $tr.innerHTML = `<th style="width:100%;"> ${scoreDict.we}</th><th style="width:100%;">${scoreDict.they}</th>`
+    $tr.innerHTML = `<td style="width:50%; text-align: center;"> ${scoreDict.we}</td><td style="width:50%; text-align: center;">${scoreDict.they}</td>`
+    $tr.style.height = '20px'
     $baseTable.appendChild($tr);
-    weTotal += scoreDict.we
-    theyTotal += scoreDict.they
+    weTotal += scoreDict.we;
+    theyTotal += scoreDict.they;
+    scrollBottom = $table.scrollHeight;
+    if (debugMessages) { console.log('scroll: ',scrollBottom)}
+
+
+    //$tr.scrollIntoView(); //not a great solution, scrolls outside window as well, I only want to scroll the table
+
+};
+
+function clearTable () {
+    if (confirm('Clear whole table?')) {
+        localStorage.clear();
+        roundCounter = 0;
+        scores = [];
+        renderCount(0,0);
+        renderTotal();
+        console.log('cleared table')
+    }
+    else if (debugMessages) {console.log('clearTable canceled')}
 };
 
 function scoreTest(high, low){
     //scores must be positive or zero
     if (low < 0) { 
         console.log('failed nonzero score test')
-        return false;}
-
-    // high score must be above minBid
-    if ((high + low) == maxBid) {
-        if (high >= minBid) {
+        return false;
+    }
+    //high score must be below cap
+    if (high > gameStats.maxBid*gameStats.numPlayers) {
+        console.log('score too high')
+        return false;
+    }
+    // high score must be above gameStats.minBid
+    if ((high + low) == gameStats.maxBid) {
+        if (high >= gameStats.minBid) {
             console.log('passed made bid test')
             return true;} 
         else { 
@@ -166,7 +280,7 @@ function scoreTest(high, low){
     } 
 
     // checks for set conditions
-    else if ((maxBid<high) && (high<(2*maxBid))) {
+    else if ((gameStats.maxBid<high) && (high<(2*gameStats.maxBid))) {
         if (low == 0) {
             console.log('passed set test')
             return true;}
@@ -177,7 +291,7 @@ function scoreTest(high, low){
 
     // checks for multiples of 42
     // already tested for nonzero high value
-    if (high % maxBid == 0) {
+    if (high % gameStats.maxBid == 0) {
         if (low == 0) {
             console.log('passed 42/nil test')
             return true;} 
@@ -191,7 +305,4 @@ function scoreTest(high, low){
 
 }
 
-$table.addEventListener('click', function removeLast(){
-    scores.splice(-1,1)
-    renderTotal()
-});
+//$tr.addEventListener('click', function () {console.log(this)});

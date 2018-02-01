@@ -18,13 +18,13 @@
               <div class = 'col-xs-4' style='height:200px;'>
                   <button id="we10" class="btn btn-primary" style="width:100%; height:50%;">10</button>
                   <button id="we5" class="btn btn-primary"style="width:100%; height:50%;">5</button>
-                  <button id="we1" class="btn btn-primary"style="width:100%; height:50%;">1</button>
+                  <button id="weTrick" class="btn btn-primary"style="width:100%; height:50%;">1</button>
               </div>
 
               <div class = 'col-xs-4'>
-                <div class="panel xs-top-90" style = 'overflow:auto;'>
-                  <div class="panel-body" style = 'overflow:auto;'>
-                    <div class = 'row' style='height:200px; overflow:auto;'>
+                <div class="panel xs-top-90">
+                  <div class="panel-body">
+                    <div class = 'row' id='tableRow' style='height:200px; overflow:auto;'>
                       <table class='table table-hover' style="height:200px; width: 100%">
                         <tbody>
                           <tr>
@@ -48,33 +48,34 @@
 
                 <div class = "row">
                   <div class = 'col-xs-4 text-center'>
-                    <h2 id='weCounter'> 0 </h2>
+                    <h2 id='weCounter'>0</h2>
                   </div>
                   <div class = 'col-xs-4 text-center'>
                     <h4 id='countSum' class='text-muted'>0</h4>
                   </div>
                   <div class = 'col-xs-4 text-center'>
                     <h2 id='theyCounter'>0</h2>
-                  </div>                      
+                  </div>
                 </div>
               </div>
 
 
               <div class = 'col-xs-4' style='height:200px;'>
-                  <button id="they10" class="btn btn-danger" style="width:100%; height:50%;">10</button>
-                  <button id="they5" class="btn btn-danger"style="width:100%; height:50%;">5</button>
-                  <button id="they1" class="btn btn-danger"style="width:100%; height:50%;">1</button>
-                </div>
+                <button id="they10" class="btn btn-danger" style="width:100%; height:50%;">10</button>
+                <button id="they5" class="btn btn-danger"style="width:100%; height:50%;">5</button>
+                <button id="theyTrick" class="btn btn-danger"style="width:100%; height:50%;">1</button>
+              </div>
             </div>
 
             <div class="row">
-                <div class='col-xs-4 col-xs-offset-2'>
-                  <button id="total" class="btn btn-primary" style='width:100%'>Total</button>
-                </div>
-                <div class='col-xs-4'>
-                  <button id='clear' class="btn btn-danger" style='width:100%'>Clear</button>             
-                </div>
+              <div class='col-xs-4 col-xs-offset-2'>
+                <button id="total" class="btn btn-primary" style='width:100%'>Total</button>
               </div>
+              <div class='col-xs-4'>
+                <button id='clear' class="btn btn-danger" style='width:100%'>Clear</button>             
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
