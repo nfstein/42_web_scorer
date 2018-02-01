@@ -5,6 +5,8 @@ var $weTrick = document.querySelector("#weTrick");
 var $total = document.querySelector("#total");
 var $clear = document.querySelector("#clear");
 
+var $switch = document.querySelector('#switch');
+
 var $theyTrick = document.querySelector("#theyTrick");
 var $they5 = document.querySelector("#they5");
 var $they10 = document.querySelector("#they10");
@@ -48,10 +50,7 @@ var rules88 = {
 
 var gameStats = rules42
 
-initialSetup(rules42)
-
-$weTrick.innerHTML = gameStats.trickValue
-$theyTrick.innerHTML = gameStats.trickValue
+init(rules42)
 
 
 $weTrick.addEventListener("click", function(){
@@ -84,31 +83,6 @@ $they10.addEventListener("click", function(){
     renderCount(weCount, theyCount);
 });
 
-$total.addEventListener("click", function(){
-    console.log(weCount + ' - ' + theyCount)
-    if ((weCount == 0) && (theyCount == 0)) {
-        return console.log('empty score')
-    }
-
-    // test for rules compliance and pottentially break without scoring
-    if (weCount >= theyCount) {
-        testPassed = scoreTest(weCount, theyCount) 
-    } else {testPassed = scoreTest(theyCount, weCount)};
-
-    //if the score is potentially invalid raise alert to proceed or reset
-    if (!testPassed && gameLogic) {
-        if (confirm("invalid score; add anyway?")) {
-            rackScores(weCount, theyCount)
-        } else {
-            renderCount(0, 0)
-        }
-
-    } 
-    // if the score is valid put 
-    else{ rackScores(weCount, theyCount) };
-
-});
-
 $countSum.addEventListener("click", function () {
     //complete scores so they add up to gameStats.maxBid
     if ((weCount == 0) && (theyCount > 0)) {
@@ -135,6 +109,50 @@ $theyCounter.addEventListener("click", function() {
     };
 });
 
+$switch.addEventListener("click", function () {
+    if (gameStats == rules42) {
+        if (confirm("Switch from 42 to 88?")) {
+            clearTable();
+            renderCount(0,0);
+            init(rules88);
+        }
+    } else if (gameStats == rules88) {
+        if (confirm("Switch from 88 to 42?")) {
+            clearTable();
+            renderCount(0,0);
+            init(rules42);
+        }
+    }
+    
+    
+    ;
+})
+
+$total.addEventListener("click", function(){
+    console.log(weCount + ' - ' + theyCount)
+    if ((weCount == 0) && (theyCount == 0)) {
+        return console.log('empty score')
+    }
+
+    // test for rules compliance and pottentially break without scoring
+    if (weCount >= theyCount) {
+        testPassed = scoreTest(weCount, theyCount) 
+    } else {testPassed = scoreTest(theyCount, weCount)};
+
+    //if the score is potentially invalid raise alert to proceed or reset
+    if (!testPassed && gameLogic) {
+        if (confirm("invalid score; add anyway?")) {
+            rackScores(weCount, theyCount)
+        } else {
+            renderCount(0, 0)
+        }
+
+    } 
+    // if the score is valid put 
+    else{ rackScores(weCount, theyCount) };
+
+});
+
 $clear.addEventListener("click", function() {
 
     console.log('clear counts')
@@ -156,7 +174,7 @@ $table.addEventListener('click', function removeLast(){
 
 });
 
-function initialSetup(rules) {
+function init(rules) {
     try {
         scores = JSON.parse(localStorage.scores);
         roundCounter = localStorage.counter;
@@ -179,6 +197,10 @@ function initialSetup(rules) {
     };
 
     gameStats = rules
+
+    $weTrick.innerHTML = gameStats.trickValue
+    $theyTrick.innerHTML = gameStats.trickValue
+    $switch.innerHTML = gameStats.maxBid
 }
 
 function rackScores(weVal, theyVal) {
